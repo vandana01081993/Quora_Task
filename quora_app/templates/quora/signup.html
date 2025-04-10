@@ -1,6 +1,18 @@
-<h2>Sign Up</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Sign Up</button>
+{% extends 'quora/base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<h2>Create an Account</h2>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="mb-3">
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Sign Up</button>
 </form>
-<a href="{% url 'login' %}">Login</a>
+{% endblock %}

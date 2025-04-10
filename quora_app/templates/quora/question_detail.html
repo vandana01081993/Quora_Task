@@ -1,18 +1,25 @@
-<h2>Q: {{ question.post_question }}</h2>
+{% extends 'quora/base.html' %}
+{% block title %}Question Detail{% endblock %}
+{% block content %}
+<h3>Q. {{ question.post_question }}</h3>
 
-<h3>Answers:</h3>
-<ul>
-  {% for a in answers %}
-    <li>{{ a.content }} - {{ a.user.username }} 
-      [<a href="{% url 'like_answer' a.id %}">Like</a>] ({{ a.likes.count }})
-    </li>
-  {% endfor %}
-</ul>
+<h5 class="mt-4">Answers:</h5>
+{% for answer in answers %}
+    <div class="card mb-2">
+        <div class="card-body">
+            {{ answer.content }} - {{ answer.user.username }}  
+            [<a href="{% url 'like_answer' answer.id %}">Like</a>] ({{ answer.likes.count }})
+        </div>
+    </div>
+{% empty %}
+    <p>No answers yet.</p>
+{% endfor %}
 
-<h4>Add Your Answer:</h4>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Submit Answer</button>
+<h5 class="mt-4">Your Answer:</h5>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit Answer</button>
 </form>
 
-<a href="{% url 'home' %}">Back to Questions</a>
+{% endblock %}

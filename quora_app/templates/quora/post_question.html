@@ -1,6 +1,14 @@
-<h2>Post a Question</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Post</button>
+{% extends 'quora/base.html' %}
+{% block title %}Ask a Question{% endblock %}
+{% block content %}
+<h2>Ask a New Question</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.post_question.label_tag }}
+        {{ form.post_question }}
+    </div>
+    <button type="submit" class="btn btn-success">Post Question</button>
 </form>
-<a href="{% url 'home' %}">Back</a>
+
+{% endblock %}

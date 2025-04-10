@@ -1,8 +1,17 @@
-<h2>Questions</h2>
-<a href="{% url 'post_question' %}">Post a Question</a> | 
-<a href="{% url 'logout' %}">Logout</a>
-<ol>
-  {% for q in questions %}
-    <li> Q <a href="{% url 'question_detail' q.pk %}">{{ q.post_question }}</a></li>
-  {% endfor %}
-</ol>
+{% extends 'quora/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h2 class="mb-4">All Questions</h2>
+
+{% for question in questions %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ question.post_question }}</h5>
+            <a href="{% url 'question_detail' question.pk %}" class="btn btn-sm btn-outline-primary">View Answers</a>
+        </div>
+    </div>
+{% empty %}
+    <p>No questions yet. Be the first to ask!</p>
+{% endfor %}
+
+{% endblock %}
