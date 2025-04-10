@@ -1,0 +1,18 @@
+<h2>Q: {{ question.post_question }}</h2>
+
+<h3>Answers:</h3>
+<ul>
+  {% for a in answers %}
+    <li>{{ a.content }} - {{ a.user.username }} 
+      [<a href="{% url 'like_answer' a.id %}">Like</a>] ({{ a.likes.count }})
+    </li>
+  {% endfor %}
+</ul>
+
+<h4>Add Your Answer:</h4>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit Answer</button>
+</form>
+
+<a href="{% url 'home' %}">Back to Questions</a>
